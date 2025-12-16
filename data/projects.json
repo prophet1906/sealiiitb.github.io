@@ -1,0 +1,69 @@
+{
+  "projects": [
+    {
+      "title": "Software Engineering for Social Impact",
+      "owners": "Sujit Kumar Chakrabarti",
+      "pagelink": "../projects/social-sujit.html"
+    },
+    {
+      "title": "Automated Evaluation of Programming Assignments",
+      "owners": "Sujit Kumar Chakrabarti",
+      "pagelink": "../projects/autoeval-sujit.html"
+    },
+    {
+      "title": "Detection of Architectural Knowledge from Legacy Code",
+      "owners": "Sujit Kumar Chakrabarti",
+      "pagelink": "../projects/reveng-sujit.html"
+    },
+    {
+      "title": "Symbolic Testing of Embedded Software",
+      "owners": "Sujit Kumar Chakrabarti",
+      "pagelink": "../projects/symtest-sujit.html"
+    },
+    {
+      "title": "Formal Specification of Web apps using Statecharts",
+      "owners": "Sujit Kumar Chakrabarti",
+      "pagelink": "../projects/reqeng-sujit.html"
+    },
+    {
+      "title": "Verification and validation of architectures for embedded software",
+      "owners": "Meenakshi D'Souza",
+      "pagelink": "../projects/project-md-1.html"
+    },
+    {
+      "title": "Verifiable avionics self-adaptive software",
+      "owners": "Meenakshi D'Souza",
+      "pagelink": "../projects/project-md-3.html"
+    },
+    {
+      "title": "Program analysis, test case generation and motion planning for robotics software",
+      "owners": "Meenakshi D'Souza",
+      "pagelink": "../projects/project-md-4.html"
+    },
+    {
+      "title": "Verifying data races and timing requirements in RTOS",
+      "owners": "Meenakshi D'Souza",
+      "pagelink": "../projects/project-md-5.html"
+    },
+    {
+      "title": "Architecture and design decisions in complex systems and system-of-systems",
+      "owners": "Meenakshi D'Souza",
+      "pagelink": "../projects/project-md-6.html"
+    },
+    {
+      "title": "Formal verification of Simulink models",
+      "owners": "Meenakshi D'Souza",
+      "pagelink": "../projects/project-md-7.html"
+    },
+    {
+      "title": "Sponsored projects",
+      "owners": "Meenakshi D'Souza",
+      "pagelink": "../projects/project-md-9.html"
+    },
+    {
+      "title": "Other projects",
+      "owners": "Meenakshi D'Souza",
+      "pagelink": "../projects/project-md-8.html"
+    }
+  ]
+}

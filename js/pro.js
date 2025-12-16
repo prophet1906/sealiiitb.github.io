@@ -1,103 +1,79 @@
-function shuffle(display_string)
-{
-var a = display_string.split("!"),
-        n = a.length;
+// Pure function to shuffle display string
+function shuffle(display_string) {
+  const items = display_string.split("!");
+  const n = items.length;
 
-    for(var i = n - 1; i > 0; i--) {
-        var j = Math.floor(Math.random() * (i + 1));
-	if(!(a[i].includes("Other projects")))
-        {
-		var tmp = a[i];
-		a[i] = a[j];
-		a[j] = tmp;
-	}
+  for (let i = n - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    if (!items[i].includes("Other projects")) {
+      const tmp = items[i];
+      items[i] = items[j];
+      items[j] = tmp;
     }
-    return a.join("");
+  }
+  return items.join("");
 }
 
-function project(projects, name)
-{
-display_string=""
-if(name != "")
-{
-	for(var i = 0; i<projects.length; i++)
-	{
-		if(projects[i].owners == name)
-	 		{
-				display_string+="!<li><a href='"+projects[i].pagelink+"'>"+projects[i].title+"</a></li>";
-			}
-	}
-	return display_string+"</ol>";
-}
-else
-{
-	for(var i = 0; i<projects.length; i++)
-	{
-		display_string+="!<li><a href='"+projects[i].pagelink+"'>"+projects[i].title+"</a></li>";
-	}
-	return display_string;
-}
-}
-
-
-function projects(name){
-var allProject = { 
-    "project" : [
-      {
-        "title" : "Software Engineering for Social Impact",
-        "owners" :"Sujit Kumar Chakrabarti",
-	"pagelink" : "../projects/social-sujit.html"
-      },{
-        "title" : "Automated Evaluation of Programming Assignments",
-        "owners" : "Sujit Kumar Chakrabarti",
-	"pagelink" : "../projects/autoeval-sujit.html"
-      },{
-        "title" : "Detection of Architectural Knowledge from Legacy Code",
-        "owners" : "Sujit Kumar Chakrabarti",
-	"pagelink" : "../projects/reveng-sujit.html"
-      },{
-        "title" : "Symbolic Testing of Embedded Software",
-        "owners" : "Sujit Kumar Chakrabarti",
-	"pagelink" : "../projects/symtest-sujit.html"
-      },{
-        "title" : "Formal Specification of Web apps using Statecharts",
-        "owners" : "Sujit Kumar Chakrabarti",
-	"pagelink" : "../projects/reqeng-sujit.html"
-      },{
-        "title" : "Verification and validation of architectures for embedded software",
-        "owners" : "Meenakshi D'Souza",
-	"pagelink" : "../projects/project-md-1.html"
-      },{
-        "title" : "Verifiable avionics self-adaptive software",
-        "owners" : "Meenakshi D'Souza",
-	"pagelink" : "../projects/project-md-3.html"
-      },{
-        "title" : "Program analysis, test case generation and motion planning for robotics software",
-        "owners" : "Meenakshi D'Souza",
-	"pagelink" : "../projects/project-md-4.html"
-      },{
-        "title" : "Verifying data races and timing requirements in RTOS",
-        "owners" : "Meenakshi D'Souza",
-	"pagelink" : "../projects/project-md-5.html"
-      },{
-        "title" : "Architecture and design decisions in complex systems and system-of-systems",
-        "owners" : "Meenakshi D'Souza",
-	"pagelink" : "../projects/project-md-6.html"
-      },{
-        "title" : "Formal verification of Simulink models",
-        "owners" : "Meenakshi D'Souza",
-	"pagelink" : "../projects/project-md-7.html"
-      },{ "title" : "Sponsored projects",
-        "owners" : "Meenakshi D'Souza",
-	"pagelink" : "../projects/project-md-9.html"
-      },{ "title" : "Other projects",
-        "owners" : "Meenakshi D'Souza",
-	"pagelink" : "../projects/project-md-8.html"
+// Pure function to filter and format projects
+function formatProjects(projects, name) {
+  let display_string = "";
+  
+  if (name !== "") {
+    for (let i = 0; i < projects.length; i++) {
+      if (projects[i].owners === name) {
+        display_string += "!<li><a href='" + projects[i].pagelink + "'>" + projects[i].title + "</a></li>";
       }
-    ]
-  };
-var element = document.getElementById("projects");
-var output_text = project(allProject.project, name)
-output_text=shuffle(output_text);
-element.innerHTML = output_text;
+    }
+    return display_string + "</ol>";
+  } else {
+    for (let i = 0; i < projects.length; i++) {
+      display_string += "!<li><a href='" + projects[i].pagelink + "'>" + projects[i].title + "</a></li>";
+    }
+    return display_string;
+  }
+}
+
+// Load projects data from JSON file
+async function loadProjectsData() {
+  try {
+    const response = await fetch('../data/projects.json');
+    
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    
+    const data = await response.json();
+    return { success: true, data: data.projects };
+  } catch (error) {
+    console.error('Error loading projects data:', error);
+    return { 
+      success: false, 
+      error: error.message,
+      fallbackData: []
+    };
+  }
+}
+
+// Display projects with error handling
+async function projects(name) {
+  const element = document.getElementById("projects");
+  
+  if (!element) {
+    console.error('Element with id "projects" not found');
+    return;
+  }
+  
+  // Show loading state
+  element.innerHTML = '<p>Loading projects...</p>';
+  
+  const result = await loadProjectsData();
+  
+  if (result.success) {
+    const output_text = formatProjects(result.data, name);
+    const shuffled_text = shuffle(output_text);
+    element.innerHTML = shuffled_text;
+  } else {
+    // Display user-friendly error message
+    element.innerHTML = '<p class="error">Unable to load projects at this time. Please try again later.</p>';
+  }
 }
